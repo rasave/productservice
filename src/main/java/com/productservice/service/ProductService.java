@@ -3,13 +3,16 @@ package com.productservice.service;
 import com.google.common.collect.Lists;
 import com.productservice.entity.Product;
 import com.productservice.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.List;
+
 @Component
 public class ProductService {
+    Logger log = LoggerFactory.getLogger(ProductService.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -30,6 +33,7 @@ public class ProductService {
             product.setStatus("pending");
             Product p = productRepository.save(product);
             approvalService.approvalRequest(p);
+            log.info("Product sent for approval productId : ", p.getId());
             return p;
         }
         return productRepository.save(product);
@@ -43,11 +47,13 @@ public class ProductService {
             if (product.getPrice() > 1.5*previous.getPrice()){
                 previous.setStatus("pending");
                 approvalService.approvalRequest(product);
+                log.info("Product sent for approval productId : ", productId);
             }else{
                 previous.setStatus(product.getStatus());
             }
             return productRepository.save(previous);
         }
+        log.info("No product found to update for productId : ", productId);
         return null;
     }
 

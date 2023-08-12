@@ -5,12 +5,16 @@ import com.productservice.entity.Approval;
 import com.productservice.entity.Product;
 import com.productservice.repository.ApprovalQueueRepository;
 import com.productservice.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
 public class ApprovalService {
+    Logger log = LoggerFactory.getLogger(ApprovalService.class);
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -30,6 +34,7 @@ public class ApprovalService {
             approvalQueueRepository.deleteById(approvalId);
             return productRepository.updateStatus("approved", approval.getProductId());
         }
+        log.info("No pending approval found to approve for approvalId : ", approvalId);
         return 0;
     }
 
@@ -39,6 +44,7 @@ public class ApprovalService {
             approvalQueueRepository.deleteById(approvalId);
             return productRepository.updateStatus("rejected", approval.getProductId());
         }
+        log.info("No pending approval found to reject for approvalId : ", approvalId);
         return 0;
     }
 

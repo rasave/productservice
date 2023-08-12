@@ -36,13 +36,10 @@ public class ProductController {
                                                          @DefaultValue("0") @RequestParam(name="minPrice") Optional<Double> minPrice,
                                                          @DefaultValue("0")@RequestParam(name="maxPrice") Optional<Double> maxPrice,
                                                          @RequestParam(name="minPostedDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Optional<Date> minPostedDate,
-                                                         @RequestParam(name="maxPostedDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> maxPostedDate
-
-    ) {
+                                                         @RequestParam(name="maxPostedDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Optional<Date> maxPostedDate) {
         Iterable<Product> resourceWithUrls = service.getSpecificProducts(name.orElse(""), minPrice.orElse(0d), maxPrice.orElse(0d), minPostedDate.orElse(new Date()), maxPostedDate.orElse(new Date()));
         return new ResponseEntity<>(resourceWithUrls, OK);
     }
-
 
     @RequestMapping(method = POST)
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
