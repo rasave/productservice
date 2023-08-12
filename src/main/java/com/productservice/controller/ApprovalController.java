@@ -2,6 +2,8 @@ package com.productservice.controller;
 
 import com.productservice.entity.Approval;
 import com.productservice.service.ApprovalService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,23 +21,23 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 public class ApprovalController {
 
     @Autowired
-    private ApprovalService service;
+    private ApprovalService approvalService;
 
     @RequestMapping(method = GET)
     public ResponseEntity<List<Approval>> getAllPendingApprovals() {
-        List<Approval> resourceWithUrls = service.getAllPendingApprovals();
+        List<Approval> resourceWithUrls = approvalService.getAllPendingApprovals();
         return new ResponseEntity<>(resourceWithUrls, OK);
     }
 
     @RequestMapping(value = "/{approvalId}/approve", method = PUT)
     public ResponseEntity approve(@PathVariable("approvalId") Integer approvalId) {
-        service.approve(approvalId);
+        approvalService.approve(approvalId);
         return new ResponseEntity<>(OK);
     }
 
     @RequestMapping(value = "/{approvalId}/reject", method = PUT)
     public ResponseEntity reject(@PathVariable("approvalId") Integer approvalId) {
-        service.reject(approvalId);
+        approvalService.reject(approvalId);
         return new ResponseEntity<>(OK);
     }
 }

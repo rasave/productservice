@@ -37,4 +37,8 @@ public class Approval {
     public Integer getProductId() {
         return productId;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

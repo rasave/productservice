@@ -26,6 +26,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
 
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.9.0'
+
+
 }
 
 tasks.named('test') {
