@@ -31,11 +31,6 @@ class ProductControllerTests {
 	@InjectMocks
 	private ProductController productController;
 
-	@BeforeEach
-	public void init() {
-		openMocks(this);
-	}
-
 	@Test
 	void testGetAllProduct() {
 		List<Product> approvals = getProduct();

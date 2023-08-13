@@ -26,11 +26,6 @@ class ApprovalControllerTests {
 	@InjectMocks
 	private ApprovalController approvalController;
 
-	@BeforeEach
-	public void init() {
-		openMocks(this);
-	}
-
 	@Test
 	void testGetAllApprovals() {
 		List<Approval> approvals = getApprovals();
